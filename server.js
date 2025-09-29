@@ -1,7 +1,6 @@
 // 📦 Import Required Modules
 const express = require('express');
 const bodyParser = require('body-parser');
-const bcrypt = require('bcrypt');
 const session = require('express-session');
 const path = require('path');
 
@@ -11,12 +10,12 @@ const port = process.env.PORT || 8080;
 
 // 🔐 Configure Express Session
 app.use(session({
-  secret: process.env.SESSION_SECRET || 's8f@9L!x2#vPz$1qWm3^rTgB&uKzXcN0',
+  secret: process.env.SESSION_SECRET || 'fallback-secret-key',
   resave: false,
-  saveUninitialized: true,
+  saveUnitialized: true,
   cookie: { 
     secure: process.env.NODE_ENV === 'production',
-    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+    maxAge: 24 * 60 * 60 * 1000
   }
 }));
 
@@ -26,28 +25,26 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Serve React build in production
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'frontend/build')));
-}
+app.use(express.static(path.join(__dirname, 'frontend/build')));
 
 // 🟢 Start Server
 app.listen(port, () => {
-  console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${port}`);
+  console.log(`Server running on port ${port}`);
 });
 
-// TEMPORARY: In-memory storage (no database needed)
+// TEMPORARY: In-memory storage
 const users = [];
 
-// 🏠 Main Page Route
+// 🏠 Main Page Route - SERVE YOUR HTML SITE
 app.get('/', (req, res) => {
+  console.log('Serving main HTML site from /public/index.html');
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// 📝 Registration Route - TEMPORARY (no database)
+// 📝 Registration Route
 app.post('/register', async (req, res) => {
   const { name, email, password, mobile } = req.body;
-  console.log('Registration attempt for:', email);
-
+  
   res.setHeader('Content-Type', 'application/json');
 
   try {
@@ -58,7 +55,6 @@ app.post('/register', async (req, res) => {
       });
     }
 
-    // Check if email exists in memory
     const existingUser = users.find(u => u.email === email);
     if (existingUser) {
       return res.status(400).json({ 
@@ -67,18 +63,16 @@ app.post('/register', async (req, res) => {
       });
     }
 
-    // Store user in memory
     const newUser = {
       id: users.length + 1,
       name,
       email,
-      password, // Store plain text temporarily
+      password,
       mobile_number: mobile,
       created_at: new Date().toISOString()
     };
     
     users.push(newUser);
-    console.log('Registration successful for:', email);
     
     return res.json({ 
       success: true, 
@@ -88,15 +82,14 @@ app.post('/register', async (req, res) => {
     console.error('Registration error:', err);
     return res.status(500).json({ 
       success: false, 
-      error: 'Registration failed. Please try again.' 
+      error: 'Registration failed.' 
     });
   }
 });
 
-// 🔐 Login Route - TEMPORARY (no database)
+// 🔐 Login Route
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
-  console.log('Login attempt for:', email);
 
   res.setHeader('Content-Type', 'application/json');
 
@@ -108,7 +101,6 @@ app.post('/login', async (req, res) => {
       });
     }
 
-    // Find user in memory
     const user = users.find(u => u.email === email && u.password === password);
     
     if (user) {
@@ -118,8 +110,6 @@ app.post('/login', async (req, res) => {
         email: user.email,
         mobile_number: user.mobile_number
       };
-      
-      console.log('Login successful for:', user.name);
       
       return res.json({ 
         success: true, 
@@ -141,18 +131,17 @@ app.post('/login', async (req, res) => {
     console.error('Login error:', err);
     return res.status(500).json({ 
       success: false, 
-      error: 'Login failed. Please try again.' 
+      error: 'Login failed.' 
     });
   }
 });
 
-// 📊 Dashboard API - TEMPORARY (no database)
+// 📊 Dashboard API
 app.get('/api/dashboard', async (req, res) => {
   if (!req.session.user) {
     return res.status(401).json({ error: 'Not authenticated' });
   }
 
-  // Return session data directly
   res.json({
     username: req.session.user.name,
     email: req.session.user.email,
@@ -164,9 +153,7 @@ app.get('/api/dashboard', async (req, res) => {
 
 // 🏠 React Dashboard Route
 app.get('/dashboard', (req, res) => {
-  if (!req.session.user) {
-    return res.redirect('/');
-  }
+  console.log('Serving React app from /frontend/build/index.html');
   res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
 });
 
@@ -174,10 +161,15 @@ app.get('/dashboard', (req, res) => {
 app.post('/logout', (req, res) => {
   req.session.destroy(err => {
     if (err) {
-      console.error('Logout error:', err);
       res.status(500).json({ success: false, error: 'Logout failed.' });
     } else {
       res.json({ success: true, message: 'Logged out successfully' });
     }
   });
+});
+
+// Serve React app for any other routes (but NOT the root)
+app.get('*', (req, res) => {
+  console.log('Catch-all route for:', req.path);
+  res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
 });
