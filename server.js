@@ -32,20 +32,16 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// Add this after your middleware setup in server.js
 const path = require('path');
 
 // Serve React build in production
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'frontend/dist')));
+  app.use(express.static(path.join(__dirname, 'frontend/build')));
   
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'frontend/dist', 'index.html'));
+    res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
   });
 }
-// Serve React build in production
-app.use(express.static('dist'));
-
 // 🟢 Start Server
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

@@ -1,32 +1,25 @@
 {
   "name": "nv-website",
   "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "build": "webpack --mode production",
-    "dev": "concurrently \"node server.js\" \"webpack serve --mode development\"",
+    "build": "cd frontend && npm install && npm run build",
+    "dev": "concurrently \"node server.js\" \"cd frontend && npm start\"",
     "server": "node server.js",
-    "client": "webpack serve --mode development"
+    "client": "cd frontend && npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-session": "^1.18.2",
     "pg": "^8.16.3",
     "bcrypt": "^5.1.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "devDependencies": {
-    "concurrently": "^8.2.0",
-    "webpack": "^5.88.0",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^4.15.0",
-    "@babel/core": "^7.22.0",
-    "@babel/preset-react": "^7.22.0",
-    "babel-loader": "^9.1.0",
-    "html-webpack-plugin": "^5.5.0",
-    "css-loader": "^6.8.0",
-    "style-loader": "^3.3.0"
+    "concurrently": "^8.2.0"
   }
 }
