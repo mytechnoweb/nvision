@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>System Administration Guide</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f0f3f5;
+      color: #333;
+    }
+
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    h2 {
+      color: #2c3e50;
+      margin-top: 2rem;
+    }
+
+    details {
+      background: white;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+    }
+
+    summary {
+      font-weight: bold;
+      font-size: 1.2rem;
+      cursor: pointer;
+      outline: none;
+    }
+
+    summary::marker {
+      color: #e67e22;
+    }
+
+    details[open] summary {
+      color: #e67e22;
+    }
+
+    p {
+      margin-top: 0.8rem;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    code {
+      background: #ecf0f1;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+<a href="welcome.html";><button style="
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+">
+  ⬅️ Go Back
+</button></a>
+  <header>
+    <h1>System Administration Essentials</h1>
+    <p>Master the backbone of IT infrastructure with key concepts, troubleshooting tips, and command-line tools</p>
+  </header>
+
+  <main>
+    <h2>Core Concepts</h2>
+
+    <details>
+      <summary>What is System Administration?</summary>
+      <p>
+        System Administration involves managing and maintaining computer systems, servers, and networks to ensure they operate efficiently and securely. It includes tasks such as installing software, configuring hardware, monitoring performance, applying updates, and troubleshooting issues. System administrators play a critical role in ensuring business continuity and IT infrastructure stability.
+      </p>
+    </details>
+
+    <details>
+      <summary>User and Permission Management</summary>
+      <p>
+        Managing users and permissions is essential for security and access control. This includes creating user accounts, assigning roles, setting file and folder permissions, and enforcing password policies. Tools like Active Directory (Windows) and `passwd`, `chmod`, `chown` (Linux) are commonly used to manage these settings.
+      </p>
+    </details>
+
+    <details>
+      <summary>Backup and Recovery</summary>
+      <p>
+        Backup and recovery strategies ensure data integrity and availability in case of system failure, data corruption, or cyberattacks. Administrators use automated backup tools, cloud storage, and disaster recovery plans to protect critical data. Regular testing of backups is vital to ensure they can be restored when needed.
+      </p>
+    </details>
+
+    <details>
+      <summary>Monitoring and Performance</summary>
+      <p>
+        Monitoring tools track system health, resource usage, and performance metrics. Administrators use software like Nagios, Zabbix, or Windows Performance Monitor to detect bottlenecks, memory leaks, or CPU spikes. Proactive monitoring helps prevent downtime and optimize system efficiency.
+      </p>
+    </details>
+
+    <details>
+      <summary>Patch Management</summary>
+      <p>
+        Patch management involves updating software and operating systems to fix vulnerabilities, improve performance, and add new features. System administrators schedule and test patches to avoid compatibility issues. Tools like WSUS (Windows Server Update Services) and `yum` or `apt` (Linux) are commonly used.
+      </p>
+    </details>
+
+    <details>
+      <summary>Security and Hardening</summary>
+      <p>
+        Security hardening includes disabling unnecessary services, enforcing strong authentication, applying firewalls, and configuring antivirus software. Administrators also implement logging, auditing, and intrusion detection systems to monitor and protect against threats.
+      </p>
+    </details>
+
+    <h2>Troubleshooting Techniques</h2>
+
+    <details>
+      <summary>System Boot Issues</summary>
+      <p>
+        If a system fails to boot, check BIOS/UEFI settings, boot order, and hardware connections. Use recovery tools like Windows Recovery Environment or Linux Live CD to access logs and repair boot loaders. Common commands include <code>bootrec /fixmbr</code> and <code>fsck</code>.
+      </p>
+    </details>
+
+    <details>
+      <summary>Network Connectivity Problems</summary>
+      <p>
+        Start by checking physical connections, IP configuration, and DNS settings. Use commands like <code>ping</code>, <code>ipconfig</code> (Windows), or <code>ifconfig</code>/<code>ip</code> (Linux) to diagnose issues. Firewalls and antivirus software may also block connections.
+      </p>
+    </details>
+
+    <details>
+      <summary>Slow System Performance</summary>
+      <p>
+        Investigate CPU, memory, and disk usage using tools like Task Manager (Windows) or <code>top</code>/<code>htop</code> (Linux). Check for background processes, malware, or insufficient resources. Disk cleanup and defragmentation may help improve performance.
+      </p>
+    </details>
+
+    <details>
+      <summary>Application Crashes</summary>
+      <p>
+        Review event logs or system logs for error messages. Ensure the application is compatible with the OS and has necessary permissions. Reinstalling or updating the software often resolves issues. Use <code>Event Viewer</code> (Windows) or <code>journalctl</code> (Linux) for diagnostics.
+      </p>
+    </details>
+
+    <h2>Important Run Commands</h2>
+
+    <details>
+      <summary>Windows Commands</summary>
+      <p>
+        <code>ipconfig</code> – Displays IP configuration<br/>
+        <code>netstat</code> – Shows network connections<br/>
+        <code>tasklist</code> – Lists running processes<br/>
+        <code>chkdsk</code> – Checks disk for errors<br/>
+        <code>systeminfo</code> – Displays system details<br/>
+        <code>shutdown /r</code> – Restarts the computer<br/>
+        <code>gpupdate /force</code> – Updates group policies
+      </p>
+    </details>
+
+    <details>
+      <summary>Linux Commands</summary>
+      <p>
+        <code>top</code> – Real-time system monitoring<br/>
+        <code>df -h</code> – Disk space usage<br/>
+        <code>ps aux</code> – Lists all running processes<br/>
+        <code>sudo apt update</code> – Updates package lists<br/>
+        <code>chmod</code> – Changes file permissions<br/>
+        <code>journalctl</code> – Views system logs<br/>
+        <code>systemctl</code> – Manages services
+      </p>
+    </details>
+  </main>
+<a href="welcome.html";><button style="
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+">
+  ⬅️ Go Back
+</button></a>
+  <footer>
+    &copy; 2025 System Admin Study Hub. All rights reserved.
+  </footer>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cybersecurity Essentials</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f7fa;
+      color: #333;
+    }
+
+    header {
+      background: #1f2d3d;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    h2 {
+      color: #1f2d3d;
+      margin-top: 2rem;
+    }
+
+    details {
+      background: white;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+    }
+
+    summary {
+      font-weight: bold;
+      font-size: 1.2rem;
+      cursor: pointer;
+      outline: none;
+    }
+
+    summary::marker {
+      color: #e74c3c;
+    }
+
+    details[open] summary {
+      color: #e74c3c;
+    }
+
+    p {
+      margin-top: 0.8rem;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    code {
+      background: #ecf0f1;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+<a href="welcome.html";><button style="
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+">
+  ⬅️ Go Back
+</button></a>
+  <header>
+    <h1>Cybersecurity Fundamentals</h1>
+    <p>Protecting digital assets through awareness, technology, and best practices</p>
+  </header>
+
+  <main>
+    <h2>Core Concepts</h2>
+
+    <details>
+      <summary>What is Cybersecurity?</summary>
+      <p>
+        Cybersecurity refers to the practice of protecting systems, networks, and data from digital attacks, unauthorized access, and damage. It encompasses a wide range of technologies, processes, and policies designed to safeguard information confidentiality, integrity, and availability. As cyber threats evolve, cybersecurity becomes increasingly critical for individuals, businesses, and governments.
+      </p>
+    </details>
+
+    <details>
+      <summary>Confidentiality, Integrity, Availability (CIA Triad)</summary>
+      <p>
+        The CIA Triad is a foundational model in cybersecurity:
+        <strong>Confidentiality</strong> ensures that sensitive information is accessed only by authorized individuals.  
+        <strong>Integrity</strong> guarantees that data remains accurate and unaltered.  
+        <strong>Availability</strong> ensures that systems and data are accessible when needed.  
+        Together, these principles guide the design of secure systems and policies.
+      </p>
+    </details>
+
+    <details>
+      <summary>Authentication and Authorization</summary>
+      <p>
+        Authentication verifies the identity of a user or system, typically through passwords, biometrics, or multi-factor methods. Authorization determines what resources a user can access after authentication. These mechanisms are essential for enforcing access control and preventing unauthorized activity.
+      </p>
+    </details>
+
+    <details>
+      <summary>Encryption</summary>
+      <p>
+        Encryption is the process of converting data into a coded format to prevent unauthorized access. It uses algorithms and keys to secure information during transmission and storage. Common methods include symmetric encryption (same key for encryption/decryption) and asymmetric encryption (public/private key pairs).
+      </p>
+    </details>
+
+    <details>
+      <summary>Firewalls</summary>
+      <p>
+        A firewall is a security device or software that monitors and controls incoming and outgoing network traffic based on predefined rules. It acts as a barrier between trusted and untrusted networks, helping to prevent unauthorized access and cyberattacks.
+      </p>
+    </details>
+
+    <details>
+      <summary>Intrusion Detection and Prevention Systems (IDPS)</summary>
+      <p>
+        IDPS tools monitor network or system activities for malicious actions or policy violations. Intrusion Detection Systems (IDS) alert administrators to suspicious behavior, while Intrusion Prevention Systems (IPS) actively block or mitigate threats in real time.
+      </p>
+    </details>
+
+    <h2>Threats & Attacks</h2>
+
+    <details>
+      <summary>Malware</summary>
+      <p>
+        Malware is malicious software designed to harm, exploit, or disable computers and networks. Types include viruses, worms, trojans, ransomware, and spyware. Malware can steal data, disrupt operations, or demand ransom payments, making it a major cybersecurity concern.
+      </p>
+    </details>
+
+    <details>
+      <summary>Phishing</summary>
+      <p>
+        Phishing is a social engineering attack where attackers impersonate trusted entities to trick users into revealing sensitive information, such as passwords or credit card numbers. It often occurs via deceptive emails, websites, or messages.
+      </p>
+    </details>
+
+    <details>
+      <summary>Denial of Service (DoS) and Distributed DoS (DDoS)</summary>
+      <p>
+        DoS attacks overwhelm a system or network with traffic, rendering it unavailable. DDoS attacks use multiple compromised devices to launch a coordinated flood of traffic. These attacks can disrupt services, damage reputations, and incur financial losses.
+      </p>
+    </details>
+
+    <details>
+      <summary>Zero-Day Exploits</summary>
+      <p>
+        A zero-day exploit targets a software vulnerability that is unknown to the vendor and has no available patch. These attacks are highly dangerous because they occur before defenses can be implemented. Timely updates and threat intelligence are key to mitigating zero-day risks.
+      </p>
+    </details>
+
+    <h2>Best Practices</h2>
+
+    <details>
+      <summary>Use Strong Passwords</summary>
+      <p>
+        Create complex passwords using a mix of letters, numbers, and symbols. Avoid using personal information or common words. Use password managers to generate and store secure credentials, and enable multi-factor authentication wherever possible.
+      </p>
+    </details>
+
+    <details>
+      <summary>Keep Software Updated</summary>
+      <p>
+        Regularly update operating systems, applications, and firmware to patch known vulnerabilities. Enable automatic updates when available, and monitor vendor advisories for critical security releases.
+      </p>
+    </details>
+
+    <details>
+      <summary>Educate Users</summary>
+      <p>
+        Human error is a leading cause of security breaches. Provide training on recognizing phishing attempts, handling sensitive data, and following security protocols. Encourage a culture of cybersecurity awareness across the organization.
+      </p>
+    </details>
+
+    <details>
+      <summary>Implement Access Controls</summary>
+      <p>
+        Use role-based access control (RBAC) to limit user permissions based on job responsibilities. Enforce the principle of least privilege, ensuring users have only the access they need to perform their tasks.
+      </p>
+    </details>
+
+    <h2>Essential Security Commands</h2>
+
+    <details>
+      <summary>Windows</summary>
+      <p>
+        <code>netstat -an</code> – Displays active network connections<br/>
+        <code>tasklist</code> – Lists running processes<br/>
+        <code>systeminfo</code> – Shows system configuration<br/>
+        <code>gpresult /R</code> – Displays group policy results<br/>
+        <code>setx</code> – Sets environment variables<br/>
+        <code>cipher /w</code> – Securely wipes deleted files
+      </p>
+    </details>
+
+    <details>
+      <summary>Linux</summary>
+      <p>
+        <code>iptables -L</code> – Lists firewall rules<br/>
+        <code>fail2ban-client status</code> – Checks Fail2Ban status<br/>
+        <code>chkrootkit</code> – Scans for rootkits<br/>
+        <code>auditctl -l</code> – Lists audit rules<br/>
+        <code>sudo ufw status</code> – Shows firewall status<br/>
+        <code>who</code> – Displays logged-in users
+      </p>
+    </details>
+  </main>
+<a href="welcome.html";><button style="
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+">
+  ⬅️ Go Back
+</button></a>
+  <footer>
+    &copy; 2025 Cybersecurity Study Hub. All rights reserved.
+  </footer>
+</body>
+</html>

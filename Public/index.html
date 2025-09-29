@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New Vision</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+<body style="background-color: aqua;">
+  <header class="header">
+    <nav class="navbar">
+      <div class="logo">New Vision</div>
+      <ul class="nav-links">
+        <li><a href="">Home</a></li>
+        <li><a href="">Alumni</a></li>
+        <li><a href="">Shared Page</a></li>
+        <li><a href="">Contact</a></li>
+        <li>
+          <button id="openLogin">Login</button>
+        </li>
+        <li>
+          <button id="openRegister">Register</button>
+        </li>
+      </ul>
+      <div class="hamburger">&#9776;</div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Welcome to New Vision Techno</h1>
+      <p>A platform built on thoughtful solutions, nurturing minds with purpose.</p>
+    </section>
+
+    <section class="courses">
+      <h2>Courses Provided</h2>
+      <div class="course-grid">
+        <div class="course-card">
+          <img src="images/net.png" alt="Network+" />
+          <h3>Network+</h3>
+        </div>
+        <div class="course-card">
+          <img src="images/vir.jpg" alt="Virtualization" />
+          <h3>Virtualization</h3>
+        </div>
+        <div class="course-card">
+          <img src="images/sys.jpg" alt="Windows Administration" />
+          <h3>Windows Administration</h3>
+        </div>
+        <div class="course-card">
+          <img src="images/server.jpg" alt="Server Administration" />
+          <h3>Server Administration</h3>
+        </div>
+        <div class="course-card">
+          <img src="images/cs.jpg" alt="Cyber Security" />
+          <h3>Cyber Security</h3>
+        </div>
+        <div class="course-card">
+          <img src="images/itil.jpg" alt="ITIL" />
+          <h3>ITIL</h3>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 New Vision Techno. All rights reserved.</p>
+      <p>Contact: <a href="mailto:info@newvisiontechno.com">info@newvisiontechno.com</a></p>
+      <p>Empowering minds through strategic learning.</p>
+    </div>
+  </footer>
+
+ <!-- Popup Registration Form -->
+<div id="registerPopup" class="popup-overlay">
+    <div class="popup-content">
+        <span id="closePopup" class="close-btn" role="button" aria-label="Close">&times;</span>
+        <h2>Create an Account</h2>
+        <!-- REMOVE action and method attributes -->
+        <form id="registerForm">
+            <input type="text" name="name" placeholder="Full Name" required />
+            <input type="email" name="email" placeholder="Email Address" required />
+            <input type="password" name="password" placeholder="Password" required />
+            <input type="tel" name="mobile" placeholder="Mobile Number (Optional)" />
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="#" id="showLogin">Login here</a></p>
+    </div>
+</div>
+
+
+  <!-- Popup Login Form -->
+<div id="LoginPopup" class="popup-overlay" style="display: none;">
+    <div class="popup-content">
+        <span id="closeLoginPopup" class="close-btn" role="button" aria-label="Close">&times;</span>
+        <h2>Login to Your Account</h2>
+        <!-- REMOVE action and method attributes -->
+        <form id="loginForm">
+            <input type="email" name="email" placeholder="Email Address" required />
+            <input type="password" name="password" placeholder="Password" required />
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="#" id="showRegister">Register here</a></p>
+    </div>
+</div>
+  
+ <script>
+  // Popup handling for registration
+  const openBtn = document.getElementById('openRegister');
+  const closeBtn = document.getElementById('closePopup');
+  const popup = document.getElementById('registerPopup');
+
+  openBtn.onclick = () => popup.style.display = 'flex';
+  closeBtn.onclick = () => popup.style.display = 'none';
+  window.onclick = (e) => {
+    if (e.target === popup) popup.style.display = 'none';
+  };
+  
+  // Registration form handling
+document.querySelector('#registerForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  console.log('=== REGISTRATION FORM SUBMITTED (JavaScript) ===');
+  
+  const formData = new FormData(e.target);
+  const data = {
+    name: formData.get('name'),
+    email: formData.get('email'),
+    password: formData.get('password'),
+    mobile: formData.get('mobile')
+  };
+
+  console.log('Registration data:', data);
+
+  try {
+    const response = await fetch('/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    });
+
+    console.log('Response status:', response.status);
+    
+    const result = await response.json();
+    console.log('Response result:', result);
+
+    if (result.success) {
+      alert('Registration successful! Please login.');
+      // Close registration popup and show login popup
+      popup.style.display = 'none';
+      loginPopup.style.display = 'flex';
+    } else {
+      alert('Registration failed: ' + result.error);
+    }
+  } catch (error) {
+    console.error('Registration error:', error);
+    alert('Registration failed. Please try again.');
+  }
+});
+</script>
+
+<script>
+    // Login popup handling
+  const loginBtn = document.getElementById('openLogin');
+  const closeLoginBtn = document.getElementById('closeLoginPopup');
+  const loginPopup = document.getElementById('LoginPopup');
+
+  loginBtn.onclick = () => loginPopup.style.display = 'flex';
+  closeLoginBtn.onclick = () => loginPopup.style.display = 'none';
+  window.onclick = (e) => {
+    if (e.target === loginPopup) loginPopup.style.display = 'none';
+  };
+
+  // Updated login form handler
+document.querySelector('#loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const formData = new FormData(e.target);
+  const data = {
+    email: formData.get('email'),
+    password: formData.get('password')
+  };
+
+  console.log('Login attempt:', data);
+
+  try {
+    const response = await fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    });
+
+    console.log('Response status:', response.status);
+    
+    // Check content type to handle both JSON and HTML responses
+    const contentType = response.headers.get('content-type');
+    
+    if (contentType && contentType.includes('application/json')) {
+      const result = await response.json();
+      console.log('JSON response:', result);
+
+      if (result.success) {
+        console.log('Login successful');
+        loginPopup.style.display = 'none';
+        localStorage.setItem('user', JSON.stringify(result.user));
+        showDashboard();
+      } else {
+        alert('Login failed: ' + result.error);
+      }
+    } else {
+      // Handle HTML response (fallback)
+      const text = await response.text();
+      console.log('HTML response received:', text.substring(0, 100));
+      alert('Login failed. Please check the server configuration.');
+    }
+  } catch (error) {
+    console.error('Login error:', error);
+    alert('Login failed. Please try again.');
+  }
+});
+
+  // Keep your existing showDashboard function
+  function showDashboard() {
+    // Your existing dashboard logic
+    console.log('Showing dashboard...');
+  }
+</script>
+
+
+<script>
+  // Hamburger menu functionality
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = document.querySelector('.nav-links');
+
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
+
+  // Dashboard functionality - UPDATED VERSION
+  function showDashboard() {
+  // Add to history state for proper back button handling
+    window.history.pushState({ dashboard: true }, '', window.location.href);	
+    // Hide the header navigation and main content
+    document.querySelector('.header').style.display = 'none';
+    document.querySelector('main').style.display = 'none';
+    document.querySelector('.footer').style.display = 'none';
+     document.title = 'Dashboard - New Vision';
+    // Create dashboard container if it doesn't exist
+    let dashboardContainer = document.getElementById('react-dashboard');
+    if (!dashboardContainer) {
+      dashboardContainer = document.createElement('div');
+      dashboardContainer.id = 'react-dashboard';
+      document.body.appendChild(dashboardContainer);
+    }
+    
+    // Make sure dashboard container is visible
+    dashboardContainer.style.display = 'block';
+    
+    // Load React dashboard
+    loadReactDashboard();
+	// Handle browser back button
+  window.addEventListener('popstate', (event) => {
+    if (event.state && event.state.dashboard) {
+      // User clicked back from dashboard - reload to show main site
+      location.reload();
+    }
+  });
+  }
+
+  function loadReactDashboard() {
+    // Load React bundle and mount the dashboard
+    const script = document.createElement('script');
+    script.src = 'http://localhost:3000/bundle.js'; // React dev server
+    script.onload = () => {
+      console.log('React dashboard loaded successfully');
+    };
+    script.onerror = () => {
+      console.error('Failed to load React dashboard');
+      // Fallback: show a simple dashboard
+      showFallbackDashboard();
+    };
+    document.head.appendChild(script);
+  }
+
+  function showFallbackDashboard() {
+    const dashboardContainer = document.getElementById('react-dashboard');
+    dashboardContainer.innerHTML = `
+      <div style="padding: 50px; text-align: center; min-height: 100vh; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div style="max-width: 600px; margin: 0 auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+          <h2>Welcome to Your Dashboard!</h2>
+          <p>You are successfully logged in.</p>
+          <button onclick="logout()" style="padding: 10px 20px; background: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px;">
+            Logout
+          </button>
+        </div>
+      </div>
+    `;
+  }
+
+  // Logout functionality - restore original layout
+  function logout() {
+    fetch('/logout', { method: 'POST' })
+      .then(() => {
+	  document.title = 'New Vision';
+        // Show header and main content again
+        document.querySelector('.header').style.display = 'block';
+        document.querySelector('main').style.display = 'block';
+        document.querySelector('.footer').style.display = 'block';
+        
+        // Hide dashboard container
+        const dashboardContainer = document.getElementById('react-dashboard');
+        if (dashboardContainer) {
+          dashboardContainer.style.display = 'none';
+        }
+        
+        // Clear any React components
+        if (window.reactRoot) {
+          window.reactRoot.unmount();
+        }
+      })
+      .catch(error => {
+        console.error('Logout error:', error);
+        location.reload();
+      });
+  }
+</script>
+  
+
+</body>
+</html>
