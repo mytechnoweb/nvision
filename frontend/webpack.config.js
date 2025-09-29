@@ -1,10 +1,7 @@
-import path from 'path';
-import { fileURLToPath } from 'url';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-export default {
+module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -37,12 +34,11 @@ export default {
   devServer: {
     port: 3000,
     historyApiFallback: true,
-    proxy: [
-      {
-        context: ['/api', '/login', '/logout', '/register'],
-        target: 'http://localhost:8080',
-        changeOrigin: true
-      }
-    ]
+    proxy: {
+      '/api': 'http://localhost:8080',
+      '/login': 'http://localhost:8080', 
+      '/logout': 'http://localhost:8080',
+      '/register': 'http://localhost:8080'
+    }
   }
 };
