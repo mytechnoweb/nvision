@@ -8,31 +8,29 @@ const path = require('path');
 
 // 🚀 Initialize Express App
 const app = express();
-const port = 8080;
+const port = process.env.PORT || 8080;
 
-// 🛠 PostgreSQL Connection Setup
+// 🛠 PostgreSQL Connection Setup - UPDATE FOR PRODUCTION
 const pool = new Pool({
-  user: 'nv',
-  host: 'localhost',
-  database: 'newvision',
-  password: '4000',
-  port: 5432,
+  connectionString: process.env.DATABASE_URL || 'postgresql://nv:4000@localhost:5432/newvision',
+  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
 });
 
 // 🔐 Configure Express Session
 app.use(session({
-  secret: 's8f@9L!x2#vPz$1qWm3^rTgB&uKzXcN0',
+  secret: process.env.SESSION_SECRET || 's8f@9L!x2#vPz$1qWm3^rTgB&uKzXcN0',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false }
+  cookie: { 
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  }
 }));
 
 // 🌐 Middleware Setup
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-const path = require('path');
 
 // Serve React build in production
 if (process.env.NODE_ENV === 'production') {
@@ -42,9 +40,10 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
   });
 }
+
 // 🟢 Start Server
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+  console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${port}`);
 });
 
 // 🏠 Main Page Route
@@ -224,12 +223,12 @@ app.get('/api/dashboard', async (req, res) => {
   }
 });
 
-// 🏠 React Dashboard Route - FIXED
+// 🏠 React Dashboard Route - FIXED PATH
 app.get('/dashboard', (req, res) => {
   if (!req.session.user) {
     return res.redirect('/');
   }
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
 });
 
 // 🚪 Logout Route
